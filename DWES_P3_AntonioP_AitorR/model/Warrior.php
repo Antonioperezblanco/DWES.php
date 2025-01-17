@@ -3,7 +3,7 @@ include_once $_SERVER ["DOCUMENT_ROOT"] . "/DWES_P3_AntonioP_AitorR/model/Charac
 class Warrior extends Character{
     private string $weapon;
 
-    public function __construct(string $name, int $user, string $weapon, int $numBattle = 0, int $level = 0) {
+    public function __construct(string $name, int $user, string $weapon,int $level = 0, int $numBattle = 0) {
         $hp = rand(100, 120);
         $damage = rand(30, 40);
 

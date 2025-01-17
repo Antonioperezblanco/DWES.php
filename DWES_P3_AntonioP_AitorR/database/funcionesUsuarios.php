@@ -91,7 +91,7 @@ function verificarPassEmail($email, $pass){
         $result = $p->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            return (int)$row['id']; 
+            return $row['id']; 
         } 
         return 0;
     }

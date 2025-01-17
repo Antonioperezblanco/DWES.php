@@ -3,16 +3,14 @@ include_once $_SERVER ["DOCUMENT_ROOT"] . "/DWES_P3_AntonioP_AitorR/database/fun
 
 function insertMage(Mage $mage){
     $conectar = conectarBD();
-    var_dump($mage);
-    $sql = "INSERT INTO mage (name, hp, damage, lvl, numBattle, dodge, health, id, id_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO mage (name, hp, damage, lvl, numBattle, dodge, health, id_user) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conectar->prepare($sql);
     
     if ($stmt === false) {
         die("Error al preparar la consulta: " . $conectar->error);
-    } else {
-        echo "Mago creado correctamente";
+    
     }
-
+    $idUser = $mage->getUser();
     $name = $mage->getName();
     $hp = $mage->getHp();
     $damage = $mage->getDamage();
@@ -20,14 +18,15 @@ function insertMage(Mage $mage){
     $numBattle = $mage->getNumBattle();
     $dodge = $mage->getDodge();
     $health = $mage->getHealth();
-    $id = $mage->getUser();
+    
 
-    $stmt->bind_param("siiiisii", $name, $hp, $damage, $lvl, $numBattle, $dodge, $health, $id);
+    $stmt->bind_param("siiiiiii" , $name, $hp, $damage, $lvl, $numBattle, $dodge, $health, $idUser );
 
     if (!$stmt->execute()) {
         echo "Error al insertar el Mago: " . $stmt->error . "<br>";
     } else {
-        echo "Mago insertado correctamente.<br>";
+        $id = $conectar->insert_id;
+        $mage->setId($id);
     }
 
     $stmt->close();
@@ -48,14 +47,15 @@ function insertJuggernaut(Juggernaut $juggernaut){
     $lvl = $juggernaut->getLevel();
     $numBattle = $juggernaut->getNumBattle();
     $resistance = $juggernaut->getResistance();
-    $id = $juggernaut->getUser();
+    $idUser = $juggernaut->getUser();
 
-    $stmt->bind_param("siiiiii", $name, $hp, $damage, $lvl, $numBattle, $resistance, $id, $id_user);
+    $stmt->bind_param("siiiiii", $name, $hp, $damage, $lvl, $numBattle, $resistance, $idUser);
 
     if (!$stmt->execute()) {
         echo "Error al insertar el Juggernaut: " . $stmt->error . "<br>";
     } else {
-        echo "Jaggernaut insertado correctamente.<br>";
+        $id = $conectar->insert_id;
+        $juggernaut->setId($id);
     }
 
     $stmt->close();
@@ -76,14 +76,15 @@ function insertWarrior(Warrior $warrior){
     $lvl = $warrior->getLevel();
     $numBattle = $warrior->getNumBattle();
     $weapon = $warrior->getWeapon();
-    $id = $warrior->getUser();
+    $idUser = $warrior->getUser();
 
-    $stmt->bind_param("siiiisi", $name, $hp, $damage, $lvl, $numBattle, $weapon, $id);
+    $stmt->bind_param("siiiisi", $name, $hp, $damage, $lvl, $numBattle, $weapon, $idUser);
 
     if (!$stmt->execute()) {
         echo "Error al insertar el guerrero: " . $stmt->error . "<br>";
     } else {
-        echo "Guerrero insertado correctamente.<br>";
+        $id = $conectar->insert_id;
+        $warrior->setId($id);
     }
 
     $stmt->close();

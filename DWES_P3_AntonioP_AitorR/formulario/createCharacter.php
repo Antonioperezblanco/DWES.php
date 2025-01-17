@@ -6,7 +6,12 @@ include_once $_SERVER ["DOCUMENT_ROOT"] . "/DWES_P3_AntonioP_AitorR/model/Warrio
 include_once $_SERVER ["DOCUMENT_ROOT"] . "/DWES_P3_AntonioP_AitorR/model/Mage.php";
 include_once $_SERVER ["DOCUMENT_ROOT"] . "/DWES_P3_AntonioP_AitorR/model/Juggernaut.php";
 include_once $_SERVER ["DOCUMENT_ROOT"] . "/DWES_P3_AntonioP_AitorR/model/Character.php";
+
 session_start();
+if($_SESSION["origin"] != "login" || $_SESSION["origin"] != "signup"){
+    header("Location: ./login.php");
+    exit;
+}
 $id = $_SESSION["id"];
 $name = $level =$weapon = "";
 $choose = isset($_POST["choose"]) ? $_POST["choose"] : "0"; 
@@ -33,14 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = true;
         }
     }
-
+    $level = securizar($_POST["level"]);    
     if ($choose == "mage" || $choose == "juggernaut") {
-        if (empty($_POST["type"])) {
-            $typeErr = "El tipo no puede estar vacío.";
-            $error = true;
-        }
 
-        if (empty($_POST["mageName"])) {
+        if (empty($_POST["name"])) {
             $nameErr = "El nombre no puede estar vacío.";
             $error = true;
         }
@@ -57,21 +58,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     setcookie("name", $name, time() + 5 * 60);
 
+   
 
     if (!$error) {
         if ($choose == "warrior") {
             createTableWarrior();
-            $warrior = new Warrior($name, (int)$id, $weapon, (int)$level);
-            echo $warrior;
+            $warrior = new Warrior($name, $id, $weapon, $level);
             insertWarrior($warrior); 
             
         }elseif($choose=="mage"){
             createTableMage();
-            $mage = new Mage($name, (int)$id, (int)$level);
+            $mage = new Mage($name, $id, $level);
             insertMage($mage);
         }else{
             createTableJuggernaut();
-            $juggernaut = new Juggernaut($name, (int)$id, (int)$level);
+            $juggernaut = new Juggernaut($name, $id, $level);
             insertJuggernaut($juggernaut);
         }
         $_SESSION["u"] = $name;

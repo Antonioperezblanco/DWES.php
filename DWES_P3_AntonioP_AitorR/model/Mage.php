@@ -6,10 +6,10 @@ class Mage extends Character{
     private bool $dodge;
     private int $health;
 
-    public function __construct(string $name, int $user, int $numBattle = 0, int $level = 0) {
+    public function __construct(string $name, int $user, int $level = 0, int $numBattle = 0) {
         $hp = rand(120, 160);
         $damage = rand(50, 70);
-        $dodge = (bool) rand(0, 1); 
+        $dodge = rand(0, 1); 
         $health = rand(10, 30);
     
       

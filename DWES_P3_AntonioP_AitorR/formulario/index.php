@@ -1,3 +1,6 @@
+<?php
+        session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +9,18 @@
     <title>Document</title>
 </head>
 <body>
-
 <?php
+    var_dump($_SESSION);
+    if($_SESSION["origin"] != "login"){
+        header("Location: ./login.php");
+        exit();
+    } elseif($_SESSION["origin"]!= "signup"){
+        header("Location: ./login.php");
+        exit();
+    }else{
+        var_dump($_SESSION);
+    }
+
 include_once("../views/header.php");
 ?>
 

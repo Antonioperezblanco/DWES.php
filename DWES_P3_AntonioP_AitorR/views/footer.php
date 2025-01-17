@@ -1,3 +1,3 @@
 <div class="containerButton">
-    <button>Log Out Session</button>
+    <a href="../formulario/login.php"><button>Log Out Session</button></a>
 </div>

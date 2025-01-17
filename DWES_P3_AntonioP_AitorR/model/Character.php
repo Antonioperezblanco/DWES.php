@@ -1,5 +1,6 @@
 <?php
 abstract class Character{
+    private int $id;
     private string $name;
     private int $hp;
     private float $damage;
@@ -7,7 +8,7 @@ abstract class Character{
     private int $numBattle;
     private int $user;
 
-    public function __construct(string $name, int $hp, float $damage, int $user, int $numBattle = 0, int $level = 0){
+    public function __construct(string $name, int $hp, float $damage, int $user, int $numBattle, int $level = 0){
         $this->name=$name;
         $this->hp=$hp;
         $this->damage=$damage;
@@ -102,6 +103,18 @@ abstract class Character{
 
     public function setUser($user){
         $this->user = $user;
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
         return $this;
     }
 }   

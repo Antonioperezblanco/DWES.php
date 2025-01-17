@@ -3,11 +3,11 @@ include_once "Character.php";
 class Juggernaut extends Character{
     private float $resistance;
 
-    public function __construct(string $name, int $user, int $numBattle = 0, int $level = 0) {
+    public function __construct(string $name, int $user,int $level = 0, $numBattle = 0) {
        
         $hp = rand(140, 200);
         $damage = rand(20, 30);
-        $resistance = rand(1, 4) / 10;
+        $resistance = rand(10, 40) / 10;
        
         parent::__construct($name, $hp, $damage, $user, $numBattle, $level);
 

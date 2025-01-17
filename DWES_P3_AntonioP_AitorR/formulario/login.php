@@ -2,13 +2,15 @@
 include_once "../funciones/securizar.php";
 include_once "../database/funcionesDB.php";
 include_once "../database/funcionesUsuarios.php";
+session_start();
+var_dump($_SESSION);
 $nUsuario = $email = $password = "";
 $nUsuarioErr = $emailErr = $passwordErr = "";
 $error = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nUsuario = isset($_POST["nombre"]) ? securizar($_POST["nombre"]) : '' ;
     $email = isset($_POST["email"]) ? securizar($_POST["email"]) : '';
-    var_dump($_POST);
+    
     $password = securizar($_POST["pass"]);
 
     if (empty($nUsuario) && $_POST["usuario"] == "login"){
@@ -87,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="row">
                 <label class="cabecera">FORMA DE INICIO</label>
                 <div class="form-check col-6">
-                    <input type="radio" class="cabecera form-check-input" value="login" name="usuario" id="login">
+                    <input type="radio" class="cabecera form-check-input" value="login" name="usuario" id="login" checked>
                     <label for="login" class="form-check-label">Nombre de usuario</label>
                 </div>
                 <div class="form-check col-6">
